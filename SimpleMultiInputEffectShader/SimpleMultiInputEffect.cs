@@ -5,11 +5,35 @@ using System.Windows.Media.Effects;
 
 namespace SimpleMultiInputEffectShader {
 	public class SimpleMultiInputEffect:ShaderEffect {
+		static protected Uri[] Uris;
+		static protected int indexUris=0;
 		#region Constructors
 		static SimpleMultiInputEffect() {
-			_pixelShader.UriSource=Global.MakePackUri("SimpleMultiInputEffect.ps");
+			Uri[] uris = {
+				Global.MakePackUri("SimpleMultiInputEffect.ps"),
+				Global.MakePackUri("DarkenDarkerColors.ps"),
+				Global.MakePackUri("LightenLighterColors.ps"),
+				Global.MakePackUri("DifferenceSimpleArithmetric.ps"),
+				Global.MakePackUri("MuliplySimpleArithmeticMultiplication.ps"),
+				Global.MakePackUri("NegativeOfDifference.ps"),
+				Global.MakePackUri("OverlayHardlight.ps"),
+				Global.MakePackUri("OverlaySoftlight.ps"),
+				Global.MakePackUri("Exclusion.ps"),
+			};
+			Uris=uris;
+			_pixelShader.UriSource=Uris[indexUris];
 		}
-		public SimpleMultiInputEffect() {
+		public Uri CurrentName {
+			get { return Uris[indexUris]; }
+		}
+		public void Next() {
+			if(++indexUris>=Uris.Length) {
+				indexUris=0;
+			}
+			_pixelShader.UriSource=Uris[indexUris];
+			Update();
+		}
+		protected void Update() {
 			this.PixelShader=_pixelShader;
 			// Update each DependencyProperty that's registered with a shader register.  This
 			// is needed to ensure the shader gets sent the proper default value.
@@ -17,8 +41,11 @@ namespace SimpleMultiInputEffectShader {
 			UpdateShaderValue(Input2Property);
 			UpdateShaderValue(MixInAmountProperty);
 		}
-		#endregion
-		#region Dependency Properties
+		public SimpleMultiInputEffect() {
+			Update();
+		}
+#endregion
+#region Dependency Properties
 		public Brush Input1 {
 			get { return (Brush)GetValue(Input1Property); }
 			set { SetValue(Input1Property,value); }
@@ -46,9 +73,9 @@ namespace SimpleMultiInputEffectShader {
 		public static readonly DependencyProperty MixInAmountProperty =
 				DependencyProperty.Register("MixInAmount",typeof(double),typeof(SimpleMultiInputEffect),
 								new UIPropertyMetadata(0.5,PixelShaderConstantCallback(0)));
-		#endregion
-		#region Member Data
+#endregion
+#region Member Data
 		private static PixelShader _pixelShader = new PixelShader();
-		#endregion
+#endregion
 	}
 }

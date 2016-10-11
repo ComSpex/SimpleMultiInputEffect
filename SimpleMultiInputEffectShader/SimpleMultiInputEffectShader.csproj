@@ -69,6 +69,28 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
     <Effect Include="SimpleMultiInputEffect.fx" />
   </ItemGroup>
+  <ItemGroup>
+    <Effect Include="DarkenDarkerColors.fx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Effect Include="LightenLighterColors.fx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Effect Include="DifferenceSimpleArithmetric.fx" />
+    <Effect Include="MuliplySimpleArithmeticMultiplication.fx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Effect Include="NegativeOfDifference.fx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Effect Include="OverlayHardlight.fx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Effect Include="OverlaySoftlight.fx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Effect Include="Exclusion.fx" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EffectCompile" Condition="'@(Effect)' != '' ">
     <PixelShaderCompile Sources="@(Effect)">

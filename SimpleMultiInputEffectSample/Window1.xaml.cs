@@ -19,6 +19,15 @@ namespace SimpleMultiInputEffectSample {
 	public partial class Window1:Window {
 		public Window1() {
 			InitializeComponent();
+			Update();
+		}
+		private void Update() {
+			int length = eff.CurrentName.Segments.Length;
+			nameOf.Text=eff.CurrentName.Segments[length-1];
+		}
+		private void button_Click(object sender,RoutedEventArgs e) {
+			eff.Next();
+			Update();
 		}
 	}
 }
