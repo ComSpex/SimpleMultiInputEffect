@@ -1,0 +1,20 @@
+﻿<Window x:Class="SimpleMultiInputEffectSample.Window1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:eff="clr-namespace:SimpleMultiInputEffectShader;assembly=SimpleMultiInputEffectShader"
+    Title="Simple Multi Input Shader Effect" SizeToContent="WidthAndHeight" >
+    <Window.Resources>
+        <ImageBrush x:Key="treeKey" ImageSource="tree.jpg" />
+    </Window.Resources>
+    <StackPanel>
+        <Image Source="toucan.jpg" Width="1024" Height="768">
+            <Image.Effect>
+                <eff:SimpleMultiInputEffect Input2="{StaticResource treeKey}" MixInAmount="{Binding ElementName=slider1, Path=Value}" />
+            </Image.Effect>
+        </Image>
+        <StackPanel Margin="10" Orientation="Horizontal">
+            <Slider Minimum="-0.5" Maximum="1" SmallChange="1" LargeChange="1" Value="0.5" Name="slider1" Width="289" />
+            <Label HorizontalAlignment="Left"  Name="label1" VerticalAlignment="Bottom" Width="120" Content="{Binding ElementName=slider1, Path=Value}" />
+        </StackPanel>
+    </StackPanel>
+</Window>
