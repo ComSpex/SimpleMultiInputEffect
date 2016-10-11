@@ -1,4 +1,5 @@
-﻿sampler2D input : register(s0);
+﻿float mixInAmount : register(C0);
+sampler2D input : register(s0);
 sampler2D tex1 : register(s1);
 float4 main(float2 uv : TEXCOORD) : COLOR
 {
@@ -16,6 +17,10 @@ Color.g = c + Color.g*(1 - ((1 - Color.g)*(1 - clr1.g) - c));
 
 c = clr1.b * Color.b;
 Color.b = c + Color.b*(1 - ((1 - Color.b)*(1 - clr1.b) - c));
+
+Color.r = Color.r * mixInAmount;
+Color.g = Color.g * mixInAmount;
+Color.b = Color.b * mixInAmount;
 
 return Color;
 }
