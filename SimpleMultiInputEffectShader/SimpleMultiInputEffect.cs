@@ -7,7 +7,6 @@ namespace SimpleMultiInputEffectShader {
 	public class SimpleMultiInputEffect:ShaderEffect {
 		static protected Uri[] Uris;
 		static protected int indexUris=0;
-		#region Constructors
 		static SimpleMultiInputEffect() {
 			Uri[] uris = {
 				Global.MakePackUri("SimpleMultiInputEffect.ps"),
@@ -44,8 +43,6 @@ namespace SimpleMultiInputEffectShader {
 		public SimpleMultiInputEffect() {
 			Update();
 		}
-#endregion
-#region Dependency Properties
 		public Brush Input1 {
 			get { return (Brush)GetValue(Input1Property); }
 			set { SetValue(Input1Property,value); }
@@ -73,9 +70,7 @@ namespace SimpleMultiInputEffectShader {
 		public static readonly DependencyProperty MixInAmountProperty =
 				DependencyProperty.Register("MixInAmount",typeof(double),typeof(SimpleMultiInputEffect),
 								new UIPropertyMetadata(0.5,PixelShaderConstantCallback(0)));
-#endregion
-#region Member Data
+
 		private static PixelShader _pixelShader = new PixelShader();
-#endregion
 	}
 }
